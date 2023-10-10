@@ -1,79 +1,76 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Template Boilerplate
 
-# Getting Started
+# Setup
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+- Setup development environment [React Native CLI](https://reactnative.dev/docs/environment-setup)
+- Node version >= 18 (recommended use [fnm](https://github.com/Schniz/fnm))
+- We recommended to use [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable) or [bun](https://bun.sh/)
+- Ruby version: 2.7.6 (recommended use [rbenv](https://github.com/rbenv/rbenv))
 
-## Step 1: Start the Metro Server
+# Importance before commit
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+>### <strong>You must fix all bug of ESLint </strong>
 
-To start Metro, run the following command from the _root_ of your React Native project:
+>### <strong>You must config git Username/Email</strong>
 
-```bash
-# using npm
-npm start
+# Command
 
-# OR using Yarn
-yarn start
-```
+> <strong>Before run script, you must navigate to your project</strong> :``` cd <your_project_folder> ```
 
-## Step 2: Start your Application
+- Install dependencies: ``` yarn ```
+- Run Android: ``` yarn android:dev ``` (dev/prod by default)
+- Run IOS: ``` yarn ios:dev ``` (dev/prod by default)
+- Start server: ``` yarn start ```
+- Install library then pods IOS: ``` yarn add <your_library> ```
+- Change App Icon
+  - Step 1: Add file to appIcon folder
+  - Step 2: Copy and pate to splash folder
+  - Step 3: Run command: ``` yarn splash ```
+  -
+- ...
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+> #### Detail command: Read script of package.json file
 
-### For Android
+## Base config (Now u can config on env)
 
-```bash
-# using npm
-npm run android
+- Change App name ``` APP_DISPLAY_NAME ``` on ``` env/(.dev/.prod) ```
+- Change App id ``` BUNDLE_IDENTIFIER ``` on ``` env/(.dev/.prod) ```
+- Change App version ``` VERSION_NAME ``` on ``` env/(.dev/.prod) ```
+- Change App build number ``` VERSION_CODE ``` on ``` env/(.dev/.prod) ```
+- Change App URL ``` API_URL ``` on ``` env/(.dev/.prod) ```
 
-# OR using Yarn
-yarn android
-```
+### Gen app icon and Change app icon by env
 
-### For iOS
+- Update app icon file from appicon folder
+- Run: ``` yarn app-icon ``` or ``` yarn app-icon:dev ```
+  - Android: auto change flavor script
+  - IOS: Change ASSETCATALOG_COMPILER_APPICON_NAME to your respective App Icon Assets (in respective env file)
 
-```bash
-# using npm
-npm run ios
+- ### App icon
 
-# OR using Yarn
-yarn ios
-```
+  - This project use [rn-ml](https://github.com/MasonLe2497/cli-tools) to gen app icon automatically
+    - App icon saved in `appicon` folder
+    - Get new `png` file with dimension 1024x1024. <b>The file must not include transparent pixel.</b>
+    - App icon named: `appicon-<environment_name>.png`. ex: `appicon-demo.pnd`
+    - Create new script for gen app icon in `package.json` file. ex:
+      - `"app-icon:demo": "npx rn-ml appicon -s appicon/appicon-demo.png -f demo -icn AppIcon-Demo"`
+        - `-f demo`: flavor android
+        - `AppIcon-Demo`: App icon image assets name for ios. It must be like `ASSETCATALOG_COMPILER_APPICON_NAME` in env file
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+  # Environment
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+>### Create new Environment
 
-## Step 3: Modifying your App
+Ex: New Environment named: Demo
 
-Now that you have successfully run the app, let's modify it.
+- ## Setup env
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+  - Create new env file in env folder (.demo)
+  - Copy all value from `.dev` to new env file
+  - Update value in new env file
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+- ## Setup Android/IOS
 
-## Congratulations! :tada:
+>## This project use [react-native-config](https://github.com/luggit/react-native-config) to switch env
+  - You can follow [this link](https://docs.google.com/document/d/1sPg4N7iXEgD_NzbXBRD_SzHPo4p48uJIgG_fC9hK48s/edit)
 
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.

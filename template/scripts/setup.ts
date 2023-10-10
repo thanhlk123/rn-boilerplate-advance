@@ -3,6 +3,8 @@ import {execSync} from 'child_process';
 import {getAndroidHome, getRubyVersion} from './common';
 
 (function () {
+  execSync('yarn');
+
   execSync('yarn patch-package', {stdio: 'inherit'});
 
   if (getAndroidHome() !== '') {
@@ -11,6 +13,7 @@ import {getAndroidHome, getRubyVersion} from './common';
     });
   }
 
+  //Check if macOS
   if (process.platform === 'darwin') {
     execSync('cd ios && touch tmp.xcconfig');
 
