@@ -29,7 +29,7 @@ import {getAndroidHome, getRubyVersion} from './common';
       '                  🧐🧐🧐🧐🧐 Installing CocoaPods dependencies!! 🧐🧐🧐🧐🧐',
     );
 
-    execSync('pod install --project-directory=ios', {
+    execSync('cd ios && pod install', {
       stdio: 'inherit',
     });
 
