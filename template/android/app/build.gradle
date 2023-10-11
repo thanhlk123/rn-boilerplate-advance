@@ -88,7 +88,7 @@ android {
         applicationId project.env.get("BUNDLE_IDENTIFIER")
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-         versionCode project.env.get("VERSION_CODE").toInteger()
+        versionCode project.env.get("VERSION_CODE").toInteger()
         versionName project.env.get("VERSION_NAME")
         testBuildType System.getProperty('testBuildType', 'debug')
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
