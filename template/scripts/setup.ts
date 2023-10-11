@@ -15,36 +15,24 @@ import {getAndroidHome, getRubyVersion} from './common';
   if (process.platform === 'darwin') {
     execSync('cd ios && touch tmp.xcconfig');
 
-    if (getRubyVersion() < 276) {
-      console.log(
-        '                  🧐🧐🧐🧐🧐 Installing CocoaPods dependencies!! 🧐🧐🧐🧐🧐',
-      );
+    console.log(
+      '                  🧐🧐🧐🧐🧐 Installing Bundle dependencies!! 🧐🧐🧐🧐🧐',
+    );
 
-      execSync('pod install --project-directory=ios', {
-        stdio: 'inherit',
-      });
+    execSync('bundle install', {
+      stdio: 'inherit',
+    });
 
-      console.log('                      ✨✨✨✨✨ Pod done!!! ✨✨✨✨✨');
-    } else {
-      console.log(
-        '                  🧐🧐🧐🧐🧐 Installing Bundle dependencies!! 🧐🧐🧐🧐🧐',
-      );
+    console.log('bundle install Done!!✨✨✨✨✨');
 
-      execSync('bundle install', {
-        stdio: 'inherit',
-      });
+    console.log(
+      '                  🧐🧐🧐🧐🧐 Installing CocoaPods dependencies!! 🧐🧐🧐🧐🧐',
+    );
 
-      console.log('bundle install Done!!✨✨✨✨✨');
+    execSync('bundle exec pod install --project-directory=ios', {
+      stdio: 'inherit',
+    });
 
-      console.log(
-        '                  🧐🧐🧐🧐🧐 Installing CocoaPods dependencies!! 🧐🧐🧐🧐🧐',
-      );
-
-      execSync('bundle exec pod install --project-directory=ios', {
-        stdio: 'inherit',
-      });
-
-      console.log('                      ✨✨✨✨✨ Pod done!!! ✨✨✨✨✨');
-    }
+    console.log('                      ✨✨✨✨✨ Pod done!!! ✨✨✨✨✨');
   }
 })();
