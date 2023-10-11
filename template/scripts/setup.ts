@@ -3,8 +3,6 @@ import {execSync} from 'child_process';
 import {getAndroidHome, getRubyVersion} from './common';
 
 (function () {
-  execSync('yarn');
-
   execSync('yarn patch-package', {stdio: 'inherit'});
 
   if (getAndroidHome() !== '') {
