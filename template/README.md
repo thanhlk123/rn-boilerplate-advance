@@ -65,7 +65,7 @@
         - `-f demo`: flavor android
         - `AppIcon-Demo`: App icon image assets name for ios. It must be like `ASSETCATALOG_COMPILER_APPICON_NAME` in env file
 
-  # Environment
+# Environment
 
 >### Create new Environment
 
@@ -78,5 +78,44 @@ Ex: New Environment named: Demo
 
 
 ## Caution
+  With gooogle play, u must publish .aab first time manually. Then, u can upload aab via fastlane. [fastlane/fastlane#14686](https://github.com/fastlane/fastlane/issues/14686)
+# Folder structure
+> <strong>Src Folder</strong>
+  This folder is the main container of all the code inside your application.
+> <strong>Assets Folder</strong>
+  It contains assets of our project. Fonts, images, icon, ...
+  With images + icon, import file to source folder inside each image/icon folder. Then you must define the name of file in index.ts file
+> <strong>Commom folder</strong>
+  - Define constants: response status, app slice name, ...
+  - Define responsive function (scale function).
+  - Define helper function.
+  - Define common hook
+  - Define regrex validation
+  - Define redux helper function
+  - ...
+> <strong>Library Folder</strong>
+  - Define common component of project.
+  - Define service related network. You will define endpoint of API here.
+  - Setup + custom library: i18n, react-native-mmkv,...
+> <strong>Model Folder</strong>   
+  Define model data that we need to store and retrieve later on.
+> <strong>Navigation folder</strong>
+  This folder contain navigation configuration. We can setup navigator or tabbar here.
+> <strong>Redux Folder</strong>
+  This folder contain reducer, action, type, selector, store, listener
+  This template use Redux toolkit to setup store.
+  If you want to call an api, please check listener folder inside redux folder
+> <strong>Screen Folder</strong>
+  Each screen has a folder
+  Structure:
+    - screen-kebab-case
+      - components
+      - index.tsx
+      - ...
 
-- With gooogle play, u must publish .aab first time manually. Then, u can upload aab via fastlane. [fastlane/fastlane#14686](https://github.com/fastlane/fastlane/issues/14686)
+# Flow to define + call api in this app:
+ 1. Config API_URL in env file
+ 2. Add endpoint in library/networking
+ 3. Create redux + write action
+ 4. Create listener, inside listener call api
+
