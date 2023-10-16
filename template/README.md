@@ -82,9 +82,11 @@ Ex: New Environment named: Demo
 # Folder structure
 > <strong>Src Folder</strong>
   This folder is the main container of all the code inside your application.
+
 > <strong>Assets Folder</strong>
   It contains assets of our project. Fonts, images, icon, ...
   With images + icon, import file to source folder inside each image/icon folder. Then you must define the name of file in index.ts file
+
 > <strong>Commom folder</strong>
   - Define constants: response status, app slice name, ...
   - Define responsive function (scale function).
@@ -93,18 +95,23 @@ Ex: New Environment named: Demo
   - Define regrex validation
   - Define redux helper function
   - ...
+
 > <strong>Library Folder</strong>
   - Define common component of project.
   - Define service related network. You will define endpoint of API here.
   - Setup + custom library: i18n, react-native-mmkv,...
+
 > <strong>Model Folder</strong>   
   Define model data that we need to store and retrieve later on.
+
 > <strong>Navigation folder</strong>
   This folder contain navigation configuration. We can setup navigator or tabbar here.
+
 > <strong>Redux Folder</strong>
   This folder contain reducer, action, type, selector, store, listener
   This template use Redux toolkit to setup store.
   If you want to call an api, please check listener folder inside redux folder
+  
 > <strong>Screen Folder</strong>
   Each screen has a folder
   Structure:
