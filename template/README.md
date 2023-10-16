@@ -1,11 +1,15 @@
 # Template Boilerplate
 
+# Original Repo: 
+ - https://github.com/masonle2x2/BoilerplateReactNative
+ - Follow this repo to get this template
+
 # Setup
 
 - Setup development environment [React Native CLI](https://reactnative.dev/docs/environment-setup)
 - Node version >= 18 (recommended use [fnm](https://github.com/Schniz/fnm))
 - We recommended to use [yarn](https://classic.yarnpkg.com/en/docs/install/#mac-stable) or [bun](https://bun.sh/)
-- Ruby version: 2.7.6 (recommended use [rbenv](https://github.com/rbenv/rbenv))
+- Ruby version: 2.7.5 (recommended use [rbenv](https://github.com/rbenv/rbenv))
 
 # Importance before commit
 
@@ -18,10 +22,9 @@
 > <strong>Before run script, you must navigate to your project</strong> :``` cd <your_project_folder> ```
 
 - Install dependencies: ``` yarn ```
-- Run Android: ``` yarn android:dev ``` (dev/prod by default)
-- Run IOS: ``` yarn ios:dev ``` (dev/prod by default)
+- Run Android: ``` yarn android:run:dev ``` (dev/prod by default)
+- Run IOS: ``` yarn ios:run:dev ``` (dev/prod by default)
 - Start server: ``` yarn start ```
-- Install library then pods IOS: ``` yarn add <your_library> ```
 - Change App Icon
   - Step 1: Add file to appIcon folder
   - Step 2: Copy and pate to splash folder
@@ -36,8 +39,13 @@
 - Change App name ``` APP_DISPLAY_NAME ``` on ``` env/(.dev/.prod) ```
 - Change App id ``` BUNDLE_IDENTIFIER ``` on ``` env/(.dev/.prod) ```
 - Change App version ``` VERSION_NAME ``` on ``` env/(.dev/.prod) ```
-- Change App build number ``` VERSION_CODE ``` on ``` env/(.dev/.prod) ```
+- Change App build number ``` VERSION_(ANDROID/IOS)_CODE ``` on ``` env/(.dev/.prod) ```
 - Change App URL ``` API_URL ``` on ``` env/(.dev/.prod) ```
+- Change Private key to secure data instorage ``` PRIVATE_KEY_STORAGE ``` on ``` env/(.dev/.prod) ```
+- Change Provisioning file name ``` PROVISIONING_PROFILE ``` on ``` env/(.dev/.prod) ```
+- Change App URL ``` PROVISIONING_PROFILE ``` on ``` env/(.dev/.prod) ```
+- Change Config related appcenter info ``` appcenter_android_key ... ``` on ``` fastlane/config.rb ```
+- Change appleId, teamId info in ``` ios_team_id/apple_id ``` on ``` fastlane/config.rb ```
 
 ### Gen app icon and Change app icon by env
 
@@ -63,14 +71,12 @@
 
 Ex: New Environment named: Demo
 
-- ## Setup env
-
-  - Create new env file in env folder (.demo)
-  - Copy all value from `.dev` to new env file
-  - Update value in new env file
-
 - ## Setup Android/IOS
 
 >## This project use [react-native-config](https://github.com/luggit/react-native-config) to switch env
   - You can follow [this link](https://docs.google.com/document/d/1sPg4N7iXEgD_NzbXBRD_SzHPo4p48uJIgG_fC9hK48s/edit)
 
+
+## Caution
+
+- With gooogle play, u must publish .aab first time manually. Then, u can upload aab via fastlane. [fastlane/fastlane#14686](https://github.com/fastlane/fastlane/issues/14686)
