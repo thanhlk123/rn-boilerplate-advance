@@ -3,7 +3,7 @@ import {existsSync, readdirSync} from 'fs';
 import {join} from 'path';
 import {createInterface} from 'readline';
 
-import {getEnvJsonFromPath} from './common';
+import {getEnvJsonFromPath, increaseBuildNumber} from './common';
 
 const run = (props: {
   platform: NodeJS.Platform;
@@ -133,6 +133,10 @@ const genKeyStore = async () => {
 
     case 'keystore':
       genKeyStore();
+      break;
+
+    case 'increaseAndroidBuildNumber':
+      increaseBuildNumber(envPath, 'android');
       break;
 
     default:

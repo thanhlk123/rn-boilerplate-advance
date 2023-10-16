@@ -4,12 +4,11 @@
 
 import Config from 'react-native-config';
 
-export const APP_BUILD_VERSION = '1.0.0.2023.10.10.09.28';
+export const APP_BUILD_VERSION = '1.0.0.2023.10.16.11.07';
 
 export const {
   API_URL,
   APP_DISPLAY_NAME,
-  VERSION_CODE,
   VERSION_NAME,
   BUNDLE_IDENTIFIER,
   DEFAULT_FALLBACK_LNG_I18n,
@@ -20,5 +19,7 @@ export const {
   DEBUG_PROVISIONING_PROFILE,
   PUBLISH_PROVISIONING_PROFILE,
   APPLE_DEVELOPMENT_TEAM,
+  IOS_VERSION_CODE,
   FLAVOR,
+  ANDROID_VERSION_CODE,
 } = Config as Record<string, string>;

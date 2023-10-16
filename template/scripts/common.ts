@@ -110,6 +110,29 @@ export const getRubyVersion = () => {
   }
 };
 
+export const increaseBuildNumber = (envPath: string, platform: string) => {
+  console.log('✨✨✨✨✨ Platform ✨✨✨✨✨', platform);
+  let envInfo = readFileSync(join('./', envPath), 'utf8');
+  const envJson = getEnvJsonFromPath(envPath);
+  const buildNumber =
+    platform === 'android'
+      ? envJson.ANDROID_VERSION_CODE
+      : envJson.IOS_VERSION_CODE;
+
+  const result =
+    platform === 'android'
+      ? envInfo.replace(
+          `ANDROID_VERSION_CODE=${buildNumber}`,
+          `ANDROID_VERSION_CODE=${parseInt(buildNumber) + 1}`,
+        )
+      : envInfo.replace(
+          `ANDROID_VERSION_CODE=${buildNumber}`,
+          `ANDROID_VERSION_CODE=${parseInt(buildNumber) + 1}`,
+        );
+
+  writeFileSync(envPath, result, 'utf8');
+};
+
 export const getAndroidHome = () => {
   try {
     return (

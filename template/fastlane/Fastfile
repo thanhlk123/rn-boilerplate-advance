@@ -1,0 +1,151 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+require './config.rb'
+
+# Support ENV variables as options or lane parameters
+fastlane_require 'dotenv'
+
+default_platform(:ios)
+
+
+platform :ios do
+  desc 'Push a new iOS uat build to Appcenter.com'
+  lane :development do
+    puts "Load .env file of development"
+    Dotenv.overload "../env/.dev"
+
+    register_devices(
+      devices: config.test_devices,
+      team_id: config.ios_team_id
+    )
+
+    match(
+      type: 'development',
+      app_identifier: ENV["BUNDLE_IDENTIFIER"],
+      force_for_new_devices: true
+    )
+
+    # Set to staging env & app icon
+    sh('yarn app-icon:dev')
+
+    cocoapods(
+      clean_install: true,
+      podfile: "./Podfile"
+    )
+
+    # Packs into a IPA file
+    gym(
+      scheme: "#{ENV['WORKSPACE_NAME']}-#{ENV['SCHEME_SUFFIX']}",
+      workspace: "ios/#{ENV['WORKSPACE_NAME']}.xcworkspace",
+      output_directory: './tmp',
+      clean: true,
+      export_method: "development"
+    )
+
+    sh("npx ts-node ../scripts/ios.ts increaseIOSBuildNumber ../env/.dev")
+
+    appcenter_upload(
+      api_token: config.appcenter_ios_key,
+      owner_name: config.appcenter_ios_owner_name,
+      owner_type: "user", # Default is user - set to organization for appcenter organizations
+      app_name: config.appcenter_ios_app_name,
+      file: "./tmp/#{ENV['WORKSPACE_NAME']}.ipa",
+      notify_testers: true # Set to false if you don't want to notify testers of your new release (default: `false`)
+    )
+  end
+
+  desc 'Push a new iOS prod build to testflight'
+  lane :production do
+    puts "Load .env file of production"
+    Dotenv.overload "../env/.prod"
+
+    match(
+      type: "app-store",
+      app_identifier: ENV["BUNDLE_IDENTIFIER"],
+      force_for_new_devices: true
+    )
+
+    # Set to staging env & app icon
+    sh('yarn app-icon')
+
+    cocoapods(
+      clean_install: true,
+      podfile: "./Podfile"
+    )
+
+    # Packs into a IPA file
+    gym(
+      scheme: "#{ENV['WORKSPACE_NAME']}-#{ENV['SCHEME_SUFFIX']}",
+      workspace: "ios/#{ENV['WORKSPACE_NAME']}.xcworkspace",
+      output_directory: './tmp',
+      output_name: "#{ENV['APP_DISPLAY_NAME']}.ipa",
+      clean: true,
+      export_method: "app-store",
+    )
+
+    upload_to_testflight({
+      apple_id: config.apple_id,
+      ipa: "./tmp/#{ENV['APP_DISPLAY_NAME']}.ipa",
+      app_identifier: ENV['BUNDLE_IDENTIFIER'],
+      skip_waiting_for_build_processing: true,
+    })
+
+    sh("npx ts-node ../scripts/ios.ts increaseIOSBuildNumber ../env/.prod")   
+  end
+end
+
+platform :android do
+  desc 'Push a new android uat build to Appcenter.com'
+  lane :development do
+    sh('yarn app-icon:dev')
+
+    gradle(task: 'clean', project_dir: "./android")
+    
+    gradle(
+      task: 'assemble',
+      build_type: 'Release',
+      project_dir: "./android",
+      flavor: "dev", 
+    )
+
+    appcenter_upload(
+      api_token: config.appcenter_android_key,
+      owner_name: config.appcenter_android_owner_name,
+      owner_type: "user", # Default is user - set to organization for appcenter organizations
+      app_name: config.appcenter_android_app_name,
+      file: './app/build/outputs/apk/release/app-dev-release.apk',
+      notify_testers: true # Set to false if you don't want to notify testers of your new release (default: `false`)
+    )
+
+    sh("npx ts-node ../scripts/android.ts increaseAndroidBuildNumber ../env/.dev")   
+  end
+
+  desc 'Build app bundle for release play console'
+  lane :production do
+    sh('yarn app-icon')
+
+    gradle(task: 'clean', project_dir: "./android")
+    
+    gradle(
+      task: 'bundle',
+      build_type: 'Release',
+      project_dir: "./android",
+      flavor: "prod", 
+    )
+
+    sh("npx ts-node ../scripts/android.ts increaseAndroidBuildNumber ../env/.prod")   
+  end
+end

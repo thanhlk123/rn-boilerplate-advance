@@ -1,6 +1,6 @@
 import {execSync} from 'child_process';
 
-import {getEnvJsonFromPath} from './common';
+import {getEnvJsonFromPath, increaseBuildNumber} from './common';
 
 const bootDevice = (deviceName: string) => {
   try {
@@ -53,9 +53,10 @@ const run = (props: {platform: NodeJS.Platform; envPath: string}) => {
   switch (nameFunc) {
     case 'run':
       run({platform, envPath});
-
       break;
-
+    case 'increaseIOSBuildNumber':
+      increaseBuildNumber(envPath, 'ios');
+      break;
     default:
       break;
   }
