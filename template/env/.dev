@@ -1,6 +1,6 @@
 API_URL="https:/"
-APP_DISPLAY_NAME="RN_Template_0724-Dev"
-VERSION_NAME="1.0.0"
+APP_DISPLAY_NAME="RN_Template_0724_Dev"
+VERSION_NAME=1.0.0
 BUNDLE_IDENTIFIER="com.rn_template_0724"
 DEFAULT_FALLBACK_LNG_I18n="en"
 #key random
